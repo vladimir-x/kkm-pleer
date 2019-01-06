@@ -22,12 +22,13 @@ public abstract class APlayable {
 
 
     public APlayable() {
-        String[] N = {"A_", "A#_", "B_", "C_", "C#_", "D_", "D#_", "E_", "F_", "F#_", "G_", "G#_"};
+                     // до          ре           ми    фа          соль           ля          си
+        String[] N = { "C_", "C#_", "D_", "D#_", "E_", "F_", "F#_", "G_", "G#_", "A_", "A#_", "B_",};
 
         for (int oct = 0; oct < 10; ++oct) {
             for (int i = 0; i < N.length; ++i) {
-                //A0 = ля 440 A4
-                int d = (oct - 4) * N.length + i;
+                //A9 = ля 440 A4
+                int d = (oct - 4) * N.length + (i -9);
                 double exp = ((double) d) / 12d;
                 double frequency = 440d * Math.pow(2d, exp);
                 String ocavaStr = String.valueOf(oct);
@@ -92,6 +93,7 @@ public abstract class APlayable {
     public void play(String note, int durationMs) throws Exception {
         if (charNotes.containsKey(note)) {
             play(charNotes.get(note), durationMs);
+            //System.out.println("play: " +note + " " +charNotes.get(note));
         } else {
             System.out.println("warn: note " + note + " unknown");
         }

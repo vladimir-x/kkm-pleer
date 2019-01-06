@@ -28,6 +28,11 @@ public class MockPleer extends APlayable {
 
     }
 
+    /**
+     *
+     * @param frequency
+     * @param durationMs Если буфер заполнен меньше чем на 1 секунду - может ничего не заиграть
+     */
     @Override
     public void play(double frequency, int durationMs) {
 
