@@ -11,14 +11,17 @@ public class KkmPleer {
     private static int volume = -50;
     private static int bpm = 0;
     private static String musicString = "";
+    private static KkmConfig kkmConfig = null;
 
     public static void main(String[] args) throws Exception {
 
         Options options = new Options();
 
         options.addOption(Option.builder("f").longOpt("file").desc("file with music").numberOfArgs(1).required(true).build());
-        options.addOption(Option.builder("v").longOpt("volume").desc("volume").numberOfArgs(1).required(false).build());
-
+        options.addOption(Option.builder("v").longOpt("volume").desc("volume. Default -50 ").numberOfArgs(1).required(false).build());
+        options.addOption(Option.builder("kkm").longOpt("kkm-type").desc("kkm model. Default: mock. Acceptable: mock,. ").numberOfArgs(1).required(false).build());
+        options.addOption(Option.builder("com").longOpt("com-speed").desc("comport:speed. Default: not use.").numberOfArgs(1).required(false).build());
+        options.addOption(Option.builder("ip").longOpt("ip-port").desc("ip4:port. Default: not use.").numberOfArgs(1).required(false).build());
 
         try {
             CommandLineParser parser = new DefaultParser();
@@ -30,6 +33,10 @@ public class KkmPleer {
             }
 
             parseFile(cmd.getOptionValue("f"));
+            kkmConfig = new KkmConfig(cmd.getOptionValue("kkm"),
+                    cmd.getOptionValue("com"),
+                    cmd.getOptionValue("ip")
+            );
 
         }catch (Exception ex){
             HelpFormatter formatter = new HelpFormatter();
@@ -37,9 +44,7 @@ public class KkmPleer {
             throw ex;
         }
 
-
-
-        APlayable pleer = new MockPleer();
+        APlayable pleer = createPlayer(kkmConfig);
 
         pleer.init();
         pleer.setVolume(volume);
@@ -52,6 +57,18 @@ public class KkmPleer {
 
 
         pleer.close();
+    }
+
+    private static APlayable createPlayer(KkmConfig config){
+        if (config == null || config.type == null || config.type.trim().length()==0){
+            return new MockPleer();
+        }
+        /*
+        if (config.type.equals("atol10")){
+            return
+        }*/
+        return new MockPleer();
+
     }
 
     private static void parseFile(String filePath) throws Exception {
