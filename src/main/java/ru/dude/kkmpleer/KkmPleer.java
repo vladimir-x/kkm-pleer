@@ -1,6 +1,9 @@
 package ru.dude.kkmpleer;
 
 import org.apache.commons.cli.*;
+import ru.dude.kkmpleer.kkm.APlayable;
+import ru.dude.kkmpleer.kkm.Atol10Kkm;
+import ru.dude.kkmpleer.kkm.MockPleer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +22,7 @@ public class KkmPleer {
 
         options.addOption(Option.builder("f").longOpt("file").desc("file with music").numberOfArgs(1).required(true).build());
         options.addOption(Option.builder("v").longOpt("volume").desc("volume. Default -50 ").numberOfArgs(1).required(false).build());
-        options.addOption(Option.builder("kkm").longOpt("kkm-type").desc("kkm model. Default: mock. Acceptable: mock,. ").numberOfArgs(1).required(false).build());
+        options.addOption(Option.builder("kkm").longOpt("kkm-type").desc("kkm model. Default: mock. Acceptable: mock, atol10. ").numberOfArgs(1).required(false).build());
         options.addOption(Option.builder("com").longOpt("com-speed").desc("comport:speed. Default: not use.").numberOfArgs(1).required(false).build());
         options.addOption(Option.builder("ip").longOpt("ip-port").desc("ip4:port. Default: not use.").numberOfArgs(1).required(false).build());
 
@@ -63,10 +66,10 @@ public class KkmPleer {
         if (config == null || config.type == null || config.type.trim().length()==0){
             return new MockPleer();
         }
-        /*
+
         if (config.type.equals("atol10")){
-            return
-        }*/
+            return new Atol10Kkm(config);
+        }
         return new MockPleer();
 
     }

@@ -1,0 +1,46 @@
+<assembly>
+
+    <baseDirectory>kkm-pleer</baseDirectory>
+
+    <formats>
+        <format>dir</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>src/main/assembly</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>lib/native/*/*.so</include>
+                <include>lib/native/*/*.dll</include>
+                <include>*.sh</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>music</directory>
+            <outputDirectory>/music</outputDirectory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+
+    <dependencySets>
+        <dependencySet>
+            <excludes>
+                <exclude>ru.dude:kkm-pleer</exclude>
+            </excludes>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+        <dependencySet>
+            <includes>
+                <include>ru.dude:kkm-pleer</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>
