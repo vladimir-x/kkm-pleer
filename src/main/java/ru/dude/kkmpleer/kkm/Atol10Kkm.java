@@ -4,8 +4,6 @@ import ru.atol.drivers10.fptr.Fptr;
 import ru.atol.drivers10.fptr.IFptr;
 import ru.dude.kkmpleer.KkmConfig;
 
-import java.util.function.IntSupplier;
-
 public class Atol10Kkm extends APlayable {
 
 
@@ -25,7 +23,7 @@ public class Atol10Kkm extends APlayable {
 
             // Каталог с файлами драйверов
             fptr.setSingleSetting(IFptr.LIBFPTR_SETTING_LIBRARY_PATH, System.getProperty("java.library.path"));
-            callAndCheckError(() -> fptr.applySingleSettings());
+            callAndCheckError(fptr.applySingleSettings());
 
             //, номер модели
             fptr.setSingleSetting(IFptr.LIBFPTR_SETTING_MODEL, String.valueOf(IFptr.LIBFPTR_MODEL_ATOL_AUTO));
@@ -44,11 +42,11 @@ public class Atol10Kkm extends APlayable {
                 fptr.setSingleSetting(IFptr.LIBFPTR_SETTING_BAUDRATE, config.getComSpeed());
             }
 
-            callAndCheckError(() -> fptr.applySingleSettings());
+            callAndCheckError(fptr.applySingleSettings());
 
 
             // Подключение к устройству
-            callAndCheckError(() -> fptr.open());
+            callAndCheckError(fptr.open());
 
             // Проверка связи
             if (!fptr.isOpened()) {
@@ -98,11 +96,11 @@ public class Atol10Kkm extends APlayable {
     /**
      * Выполняет команду и проверяет код ошибки.
      *
-     * @param command команда
+     * @param res результат выполнения комманды
      * @throws Exception при выплнении команды
      */
-    private void callAndCheckError(IntSupplier command) throws Exception {
-        if (command.getAsInt() < 0) {
+    private void callAndCheckError(int res) throws Exception {
+        if (res < 0) {
             checkResult();
         }
     }

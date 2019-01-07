@@ -11,7 +11,7 @@ import java.io.FileReader;
 
 public class KkmPleer {
 
-    private static int volume = -50;
+    private static int volume = -30;
     private static int bpm = 0;
     private static String musicString = "";
     private static KkmConfig kkmConfig = null;
@@ -21,7 +21,7 @@ public class KkmPleer {
         Options options = new Options();
 
         options.addOption(Option.builder("f").longOpt("file").desc("file with music").numberOfArgs(1).required(true).build());
-        options.addOption(Option.builder("v").longOpt("volume").desc("volume. Default -50 ").numberOfArgs(1).required(false).build());
+        options.addOption(Option.builder("v").longOpt("volume").desc("volume. Default  " + volume).numberOfArgs(1).required(false).build());
         options.addOption(Option.builder("kkm").longOpt("kkm-type").desc("kkm model. Default: mock. Acceptable: mock, atol10. ").numberOfArgs(1).required(false).build());
         options.addOption(Option.builder("com").longOpt("com-speed").desc("comport:speed. Default: not use.").numberOfArgs(1).required(false).build());
         options.addOption(Option.builder("ip").longOpt("ip-port").desc("ip4:port. Default: not use.").numberOfArgs(1).required(false).build());
@@ -96,6 +96,8 @@ public class KkmPleer {
                 br.close();
             }
 
+        } else {
+            throw new Exception("File " + filePath + " not exist!");
         }
     }
 
