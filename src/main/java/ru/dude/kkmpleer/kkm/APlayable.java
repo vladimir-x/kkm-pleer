@@ -44,9 +44,11 @@ public abstract class APlayable {
                 }
             }
         }
-        charNotes.put("", charNotes.get("A0"));
-        charNotes.put(" ", charNotes.get("A0"));
-        charNotes.put("silent", charNotes.get("A0"));
+
+        // Сделал через wait!!! минимум для атола "G#2" , "A0" для моковой
+    //    charNotes.put("", charNotes.get("G#2"));
+    //    charNotes.put(" ", charNotes.get("G#2"));
+    //    charNotes.put("silent", charNotes.get("G#2"));
     }
 
     public void parsePlay(String noteUnparsed, double durationMs) throws Exception {
@@ -91,12 +93,25 @@ public abstract class APlayable {
     }
 
     public void play(String note, int durationMs) throws Exception {
-        if (charNotes.containsKey(note)) {
+
+        if (note.trim().equals("") || note.trim().equals("silent")){
+            silenceWait(durationMs);
+        }else  if (charNotes.containsKey(note)) {
             play(charNotes.get(note), durationMs);
             //System.out.println("play: " +note + " " +charNotes.get(note));
         } else {
             System.out.println("warn: note " + note + " unknown");
         }
+    }
+
+    private void silenceWait(int durationMs){
+
+        try {
+            Thread.sleep(durationMs);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public Map<String, Double> getCharNotes() {
