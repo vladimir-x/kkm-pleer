@@ -16,6 +16,7 @@
                 <include>lib/native/*/*.so</include>
                 <include>lib/native/*/*.dll</include>
                 <include>*.sh</include>
+                <include>*.bat</include>
             </includes>
         </fileSet>
         <fileSet>
