@@ -17,6 +17,4 @@ IF "%JavaVer%"=="" (
     set libPath=.\lib\native\windows-64
 )
 
-%pathToJavawExe% -Djava.library.path=%libPath% -jar kkm-pleer-1.0-SNAPSHOT.jar \
-        -f music/some.txt -v -30 \
-        -kkm atol10 -ip 172.0.0.1:5555
+%pathToJavaExe% -Djava.library.path=%libPath% -jar kkm-pleer-1.0-SNAPSHOT.jar -f music\some.txt -kkm atol10 -ip 172.0.0.1:5555
